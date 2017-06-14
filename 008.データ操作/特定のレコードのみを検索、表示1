@@ -1,0 +1,11 @@
+mysql> mysql> SELECT * FROM profiles WHERE name=高橋清;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'name=高橋清' at line 1
+mysql> SELECT * FROM profiles WHERE name='高橋清';
++------------+-----------+---------------+------+------------+
+| profilesID | name      | tell          | age  | birthday   |
++------------+-----------+---------------+------+------------+
+|          5 | 高橋清    | 090-9900-1234 |   24 | 2000-12-24 |
++------------+-----------+---------------+------+------------+
+1 row in set (0.00 sec)
+
+mysql> 
