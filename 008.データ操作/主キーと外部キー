@@ -1,0 +1,156 @@
+Last login: Tue Jun 13 15:15:24 on ttys001
+csayas-mbp:~ sayanishimura$ cd /Applications/MAMP/Library/bin;
+sayas-mbp:bin sayanishimura$ ./mysql -u root -p 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 39
+Server version: 5.6.35 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE Challenge_db;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> create table department(departmentID int,departmentName text);
+ERROR 1050 (42S01): Table 'department' already exists
+mysql> drop table department;
+Query OK, 0 rows affected (2.80 sec)
+
+mysql> create table department(departmentID int Primary Key,departmentName text);
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> INSERT INTO department(departmentID,departmentName)VALUES(1,'Marketing'); 
+Query OK, 1 row affected (4.35 sec)
+
+mysql> INSERT INTO department(departmentID,departmentName)VALUES(2,'Human Resource');
+Query OK, 1 row affected (0.76 sec)
+
+mysql> INSERT INTO department(departmentID,departmentName)VALUES(3,'Product Design');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO department(departmentID,departmentName)VALUES(4,'Customer Assintance');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> SELECT * FROM department;
++--------------+---------------------+
+| departmentID | departmentName      |
++--------------+---------------------+
+|            1 | Marketing           |
+|            2 | Human Resource      |
+|            3 | Product Design      |
+|            4 | Customer Assintance |
++--------------+---------------------+
+4 rows in set (0.00 sec)
+
+mysql> create table user(userID int Primary Key,name varchar(255),tell varchar(255),age int,birthday date,departmentID int Foreign Key,stationID int); )
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Foreign Key,stationID int)' at line 1
+    -> create table user(userID int Primary Key,name varchar(255),tell varchar(255),age int,birthday date,departmentID int Foreign Key('departmentID'),stationID int); 
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+create table user(userID int Primary Key,name varchar(255),tell varchar(255),a' at line 1
+mysql> reate table user(userID int Primary Key,name varchar(255),tell varchar(255),age int,birthday date,departmentID int Foreign Key References department('departmentID'),stationID int); 
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reate table user(userID int Primary Key,name varchar(255),tell varchar(255),age ' at line 1
+mysql> reate table user(userID int Primary Key,name varchar(255),tell varchar(255),age int,birthday date,departmentID int,stationID int,FOREIGN KEY(departmentID)REFERENCES department(departmentID));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reate table user(userID int Primary Key,name varchar(255),tell varchar(255),age ' at line 1
+mysql> reate table user(userID int Primary Key,name varchar(255),tell varchar(255),age int,birthday date,departmentID int,stationID int); 
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reate table user(userID int Primary Key,name varchar(255),tell varchar(255),age ' at line 1
+mysql> reate table user(userID int Primary Key,name varchar(255),tell varchar(255),age int,birthday date,departmentID int,stationID int); 
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reate table user(userID int Primary Key,name varchar(255),tell varchar(255),age ' at line 1
+mysql> create table user(userID int Primary Key,name varchar(255),tell varchar(255),age int,birthday date,departmentID int,stationID int);
+Query OK, 0 rows affected (4.07 sec)
+
+mysql> 
+mysql>  INSERT INTO user(userID,name,tell,age,birthday,mysql> INSERT INTO user(userID,name,tell,age,birthday,departmentID,stationID)VALUES('1','田中実','012-345-6789','30','1994-02-01','3','1');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '> INSERT INTO user(userID,name,tell,age,birthday,departmentID,stationID)VALUES('' at line 1
+mysql> 
+mysql> INSERT INTO user(userID,name,tell,age,birthday,departmentID,stationID)VALUES('1','田中実','012-345-6789','30','1994-02-01','3','1');
+Query OK, 1 row affected (2.80 sec)
+
+mysql> INSERT INTO user(userID,name,tell,age,birthday,departmentIDnID)VALUES('2','鈴木茂','090-1122-3344','37','1987-08-12','3','4');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO user(userID,name,tell,age,birthday,departmentIDnID)VALUES('2','鈴木茂','090-1122-3344','37','1987-08-12','3','4');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO user(userID,name,tell,age,birthday,departmentID)VALUES('2','鈴木茂','090-1122-3344','37','1987-08-12','3','4');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO user(userID,name,tell,age,birthday,departmentID)VALUES('2','鈴木茂','090-1122-3344','37','1987-08-12','3','4');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO user(userID,name,tell,age,birthday,departmentID,stationID)VALUES('2','鈴木茂','090-1122-3344','37','1987-08-12','3','4');
+Query OK, 1 row affected (1.83 sec)
+
+mysql> INSERT INTO user(userID,name,tell,age,birthday,departmentID,stationID)VALUES('3','鈴木実','080-5566-7788','24','2000-12-24','2','5');
+Query OK, 1 row affected (2.27 sec)
+
+mysql> INSERT INTO user(userID,name,tell,age,birthday,departmentID,stationID)VALUES('4','佐藤清','012-0987-6543','19','2005-08-01','1','5');
+Query OK, 1 row affected (3.60 sec)
+
+mysql> INSERT INTO user(userID,name,tell,age,birthday,departmentID,stationID)VALUES('5','高橋清','090-9900-1234','24','2000-12-24','3','5');
+Query OK, 1 row affected (2.00 sec)
+
+mysql> SELECT * FROM user;
++--------+-----------+---------------+------+------------+--------------+-----------+
+| userID | name      | tell          | age  | birthday   | departmentID | stationID |
++--------+-----------+---------------+------+------------+--------------+-----------+
+|      1 | 田中実    | 012-345-6789  |   30 | 1994-02-01 |            3 |         1 |
+|      2 | 鈴木茂    | 090-1122-3344 |   37 | 1987-08-12 |            3 |         4 |
+|      3 | 鈴木実    | 080-5566-7788 |   24 | 2000-12-24 |            2 |         5 |
+|      4 | 佐藤清    | 012-0987-6543 |   19 | 2005-08-01 |            1 |         5 |
+|      5 | 高橋清    | 090-9900-1234 |   24 | 2000-12-24 |            3 |         5 |
++--------+-----------+---------------+------+------------+--------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE user ADD FOREIGN KEY(departmentID) REFERENCES department(departmentID);
+Query OK, 5 rows affected (2.05 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT name FROM user WHERE departmentName=Marketing;
+ERROR 1054 (42S22): Unknown column 'departmentName' in 'where clause'
+mysql> create table station(station ID int,stationName text);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ID int,stationName text)' at line 1
+mysql> create table station(stationID int,stationName text);
+Query OK, 0 rows affected (4.56 sec)
+
+mysql> INSERT INTO station(stationID int,stationName text)VALUES(1,'Tokyo');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'int,stationName text)VALUES(1,'Tokyo')' at line 1
+mysql> INSERT INTO station(stationID,stationName)VALUES(1,'Tokyo');
+Query OK, 1 row affected (2.05 sec)
+
+mysql> INSERT INTO station(stationID,stationName)VALUES(2,'Shinagawa');
+Query OK, 1 row affected (4.51 sec)
+
+mysql> INSERT INTO station(stationID,stationName)VALUES(3,'Toranomon');
+Query OK, 1 row affected (1.46 sec)
+
+mysql> INSERT INTO station(stationID,stationName)VALUES(4,'Yokohama');
+Query OK, 1 row affected (1.77 sec)
+
+mysql> INSERT INTO station(stationID,stationName)VALUES(5,'Nagoya');
+Query OK, 1 row affected (1.29 sec)
+
+mysql> SELECT * FROM station;
++-----------+-------------+
+| stationID | stationName |
++-----------+-------------+
+|         1 | Tokyo       |
+|         2 | Shinagawa   |
+|         3 | Toranomon   |
+|         4 | Yokohama    |
+|         5 | Nagoya      |
++-----------+-------------+
+5 rows in set (0.01 sec)
+
+mysql>  ALTER TABLE station  ADD PRIMARY KEY(stationID);
+Query OK, 5 rows affected (4.39 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql>  ALTER TABLE user ADD FOREIGN KEY(stationID) REFERENCES station(stationID);
+Query OK, 5 rows affected (0.69 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> 
